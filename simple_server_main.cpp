@@ -2,7 +2,7 @@
 #include "SocketException.h"
 #include <string>
 
-int main ( int argc, int argv[] )
+int main ( int argc, char *argv[] )
 {
     std::cout << "running....\n";
 
@@ -27,7 +27,7 @@ int main ( int argc, int argv[] )
                     new_sock >> data;
                     std::cout << "Server recv data from client is : " << data << std::endl;
                     std::cout << "Enter data for client:";
-                    std::cin >> data;
+                    getline(std::cin, data);
                     new_sock << data;
                 }
             }

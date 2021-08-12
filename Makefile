@@ -8,11 +8,11 @@ simple_client_objects = ClientSocket.o Socket.o simple_client_main.o
 all : simple_server simple_client
 
 simple_server: $(simple_server_objects)
-	g++ -o simple_server $(simple_server_objects)
+	g++ -o simple_server $(simple_server_objects) -std=c++17
 
 
 simple_client: $(simple_client_objects)
-	g++ -o simple_client $(simple_client_objects)
+	g++ -o simple_client $(simple_client_objects) -std=c++17
 
 
 Socket: Socket.cpp
