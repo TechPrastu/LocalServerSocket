@@ -1,5 +1,5 @@
-#include "ServerClient/Include/ClientSocket.h"
-#include "ServerClient/Include/SocketException.h"
+#include "ClientSocket.h"
+#include "SocketException.h"
 #include <iostream>
 #include <string>
 
