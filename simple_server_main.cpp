@@ -1,5 +1,5 @@
-#include "ServerSocket.h"
-#include "SocketException.h"
+#include "ServerClient/Include/ServerSocket.h"
+#include "ServerClient/Include/SocketException.h"
 #include <string>
 
 int main ( int argc, char *argv[] )
@@ -27,8 +27,10 @@ int main ( int argc, char *argv[] )
                     new_sock >> data;
                     std::cout << "Server recv data from client is : " << data << std::endl;
                     std::cout << "Enter data for client:";
-                    getline(std::cin, data);
-                    new_sock << data;
+                    std::string newData;
+                    std::getline(std::cin, newData);
+                    new_sock << newData;
+                    std::cout << "enter data is --->" <<newData << std::endl;
                 }
             }
             catch ( SocketException& ) {}
