@@ -1,5 +1,5 @@
-#include "ServerClient/Include/ServerSocket.h"
-#include "ServerClient/Include/SocketException.h"
+#include "ServerSocket.h"
+#include "SocketException.h"
 #include <string>
 
 int main ( int argc, char *argv[] )
