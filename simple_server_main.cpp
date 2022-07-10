@@ -30,7 +30,6 @@ int main ( int argc, char *argv[] )
                     std::string newData;
                     std::getline(std::cin, newData);
                     new_sock << newData;
-                    std::cout << "enter data is --->" <<newData << std::endl;
                 }
             }
             catch ( SocketException& ) {}
