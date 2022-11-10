@@ -16,7 +16,7 @@ public:
     const ServerSocket& operator << ( const std::string& ) const;
     const ServerSocket& operator >> ( std::string& ) const;
 
-    void accept ( ServerSocket& );
+    void accept ( ServerSocket&, const bool &blocking = false );
 };
 
 

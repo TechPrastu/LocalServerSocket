@@ -2,7 +2,7 @@
 #include "SocketException.h"
 #include <string>
 
-int main ( int argc, char *argv[] )
+int main(int argc, char *argv[])
 {
     std::cout << "running....\n";
 
@@ -10,33 +10,34 @@ int main ( int argc, char *argv[] )
     {
         // Create the socket
         // ServerSocket server ( 30000 );
-        unlink( "/tmp/server_tmp" );
-        ServerSocket server ( "/tmp/server_tmp" );
+        unlink("/tmp/server_tmp");
+        ServerSocket server("/tmp/server_tmp");
 
-        while ( true )
+        while (true)
         {
-
             ServerSocket new_sock;
-            server.accept ( new_sock );
+            server.accept(new_sock, false);
 
             try
             {
-                while ( true )
+                while (true)
                 {
                     std::string data;
                     new_sock >> data;
-                    std::cout << "Server recv data from client is : " << data << std::endl;
+                    std::cout << "Server recv data from client is : " << data;
+                    std::cout << std::endl;
                     std::cout << "Enter data for client:";
                     std::string newData;
                     std::getline(std::cin, newData);
                     new_sock << newData;
                 }
             }
-            catch ( SocketException& ) {}
-
+            catch (SocketException &)
+            {
+            }
         }
     }
-    catch ( SocketException& e )
+    catch (SocketException &e)
     {
         std::cout << "Exception was caught:" << e.description() << "\nExiting.\n";
     }

@@ -64,10 +64,12 @@ const ServerSocket& ServerSocket::operator >> ( std::string& s ) const
     return *this;
 }
 
-void ServerSocket::accept ( ServerSocket& sock )
+void ServerSocket::accept ( ServerSocket& sock, const bool &blocking )
 {
     if ( ! Socket::accept ( sock ) )
     {
         throw SocketException ( "Could not accept socket." );
     }
+
+    Socket::set_non_blocking( blocking );
 }
