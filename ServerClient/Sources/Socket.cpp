@@ -4,24 +4,28 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#include "Logger.h"
 
 Socket::Socket() : m_sock ( -1 )
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s", __func__ );
+
     memset ( &m_addr, 0, sizeof ( m_addr ) );
     memset(&serveraddr, 0, sizeof(serveraddr));
 }
 
 Socket::~Socket()
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s", __func__ );
+
     if ( is_valid() )
         ::close ( m_sock );
 }
 
 bool Socket::create()
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s", __func__ );
+
     m_sock = socket ( AF_INET, SOCK_STREAM, 0 );
 
     if ( ! is_valid() )
@@ -37,7 +41,8 @@ bool Socket::create()
 
 bool Socket::create( const std::string serverPath )
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s: serverPath:%s", __func__, serverPath );
+
     m_sock = socket(AF_UNIX, SOCK_STREAM, 0);
 
     if ( ! is_valid() )
@@ -55,7 +60,7 @@ bool Socket::create( const std::string serverPath )
 
 bool Socket::bind ( const int port )
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s: port:%d", __func__, port );
 
     if ( ! is_valid() )
     {
@@ -78,7 +83,7 @@ bool Socket::bind ( const int port )
 
 bool Socket::bind ( const std::string serverPath)
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s: serverPath:%s", __func__, serverPath );
 
     if ( ! is_valid() )
     {
@@ -100,7 +105,7 @@ bool Socket::bind ( const std::string serverPath)
 
 bool Socket::listen() const
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s", __func__ );
 
     if ( ! is_valid() )
     {
@@ -121,7 +126,7 @@ bool Socket::listen() const
 
 bool Socket::accept ( Socket& new_socket ) const
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s", __func__ );
 
     int addr_length = sizeof ( m_addr );
     new_socket.m_sock = ::accept ( m_sock, ( sockaddr * ) &m_addr, ( socklen_t * ) &addr_length );
@@ -133,11 +138,11 @@ bool Socket::accept ( Socket& new_socket ) const
 }
 
 
-bool Socket::send ( const std::string s ) const
+bool Socket::send ( const std::string sendData ) const
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s: sendData:%s", __func__, sendData );
 
-    int status = ::send ( m_sock, s.c_str(), s.size(), MSG_NOSIGNAL );
+    int status = ::send ( m_sock, sendData.c_str(), sendData.size(), MSG_NOSIGNAL );
     if ( status == -1 )
     {
         return false;
@@ -149,13 +154,13 @@ bool Socket::send ( const std::string s ) const
 }
 
 
-int Socket::recv ( std::string& s ) const
+int Socket::recv ( std::string& recvData ) const
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s: recvData:%s", __func__, recvData );
 
     char buf [ MAXRECV + 1 ];
 
-    s = "";
+    recvData = "";
 
     memset ( buf, 0, MAXRECV + 1 );
 
@@ -172,14 +177,14 @@ int Socket::recv ( std::string& s ) const
     }
     else
     {
-        s = buf;
+        recvData = buf;
         return status;
     }
 }
 
 bool Socket::connect ( const std::string host, const int port )
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s: host:%s, port:%s", __func__, host, port );
 
     if ( ! is_valid() ) return false;
 
@@ -200,7 +205,7 @@ bool Socket::connect ( const std::string host, const int port )
 
 bool Socket::connect ( const std::string serverPath)
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s: serverPath:%s", __func__, serverPath );
 
     if ( ! is_valid() )
         return false;
@@ -218,7 +223,7 @@ bool Socket::connect ( const std::string serverPath)
 
 void Socket::set_non_blocking ( const bool b )
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    Logger::Trace("%s", __func__ );
 
     int opts;
 

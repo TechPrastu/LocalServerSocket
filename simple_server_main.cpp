@@ -1,10 +1,13 @@
 #include "ServerSocket.h"
 #include "SocketException.h"
 #include <string>
+#include "Logger.h"
 
 int main(int argc, char *argv[])
 {
-    std::cout << "running....\n";
+    Logger::SetPriority(LogLevel::INFO);
+
+    Logger::Info( "%s", "running....");
 
     try
     {

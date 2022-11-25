@@ -41,7 +41,6 @@ public:
     bool send ( const std::string ) const;
     int recv ( std::string& ) const;
 
-
     void set_non_blocking ( const bool );
 
     bool is_valid() const
