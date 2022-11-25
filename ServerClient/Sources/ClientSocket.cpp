@@ -2,10 +2,13 @@
 
 #include "ClientSocket.h"
 #include "SocketException.h"
+#include "Logger.h"
 
 
 ClientSocket::ClientSocket ( std::string host, int port )
 {
+    Logger::Trace("%s: host:%s, port:%d", __func__, host, port );
+
     if ( ! Socket::create() )
     {
         throw SocketException ( "Could not create client socket." );
@@ -19,6 +22,8 @@ ClientSocket::ClientSocket ( std::string host, int port )
 
 ClientSocket::ClientSocket ( std::string serverPath )
 {
+    Logger::Trace("%s: serverPath:%s", __func__, serverPath );
+
     if ( ! Socket::create( serverPath ) )
     {
         throw SocketException ( "Could not create client socket." );

@@ -18,6 +18,7 @@ set ( PROJECT_LINK_LIBS ServerClient )
 link_directories( ServerClient )
 
 include_directories(ServerClient/Include)
+include_directories("../Logger")
 
 target_link_libraries(simple_server ${PROJECT_LINK_LIBS})
 target_link_libraries(simple_client ${PROJECT_LINK_LIBS})

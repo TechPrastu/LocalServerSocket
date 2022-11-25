@@ -2,9 +2,12 @@
 #include "SocketException.h"
 #include <iostream>
 #include <string>
+#include "Logger.h"
 
 int main(int argc, char *argv[])
 {
+    Logger::SetPriority(LogLevel::INFO);
+
     try
     {
         // ClientSocket client_socket ( "localhost", 30000 );
@@ -21,13 +24,12 @@ int main(int argc, char *argv[])
             std::getline(std::cin, newData);
             client_socket << newData;
             client_socket >> reply;
+            std::cout << "We received this response from the server:\n\"" << reply << "\"\n";
+
         }
         catch (SocketException &)
         {
         }
-
-        std::cout << "We received this response from the server:\n\"" << reply << "\"\n";
-        ;
     }
     catch (SocketException &e)
     {
