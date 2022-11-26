@@ -1,0 +1,4 @@
+[submodule "external/Logger"]
+	path = external/Logger
+	url = https://github.com/TechPrastu/Logger
+	branch = main
