@@ -19,12 +19,10 @@ link_directories(ServerClient)
 
 include_directories(ServerClient/Include)
 
-set(LOGGER_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/Logger)
+set(LOGGER_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/Logger/include)
 
 target_link_libraries(simple_server ${PROJECT_LINK_LIBS})
 target_link_libraries(simple_client ${PROJECT_LINK_LIBS})
-
-execute_process(COMMAND git submodule update -f)
 
 find_path(LOGGER_INCLUDE_DIR ...)
 
@@ -36,7 +34,7 @@ if((NOT LOGGER_INCLUDE_DIR) OR (NOT EXISTS ${LOGGER_INCLUDE_DIR}))
     execute_process(COMMAND git submodule update --init -- external/Logger WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
     # also install it
-    install(DIRECTORY ${LOGGER_INCLUDE_DIR}/include DESTINATION ${INSTALL_NAME_DIR}/include)
+    install(DIRECTORY ${LOGGER_INCLUDE_DIR} DESTINATION ${INSTALL_NAME_DIR}/include)
 
     # for convenience setup a target
     add_library(Logger INTERFACE)
@@ -47,6 +45,8 @@ if((NOT LOGGER_INCLUDE_DIR) OR (NOT EXISTS ${LOGGER_INCLUDE_DIR}))
     # need to export target as well
     #install(TARGETS Logger EXPORT my_export_set DESTINATION ${INSTALL_NAME_DIR})
 else()
+    message("update git submodule ...")
+    execute_process(COMMAND git submodule update --recursive --remote)
     include_directories(${LOGGER_INCLUDE_DIR})
 endif()
 
