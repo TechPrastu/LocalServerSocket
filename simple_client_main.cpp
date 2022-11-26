@@ -2,7 +2,7 @@
 #include "SocketException.h"
 #include <iostream>
 #include <string>
-#include "external/Logger/Logger.h"
+#include "Logger.h"
 
 int main(int argc, char *argv[])
 {
